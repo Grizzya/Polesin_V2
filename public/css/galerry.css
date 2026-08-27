@@ -1,0 +1,172 @@
+/* ========================================= */
+/* ============ GALLERY SECTION STYLE ============ */
+/* ========================================= */
+.gallery-banner {
+    position: relative;
+    height: 400px;
+    text-align: center;
+    color: white;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../images/eqeqe2.JPG");
+}
+
+.gallry-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.gallery-banner-content {
+    position: relative;
+    z-index: 2;
+    padding-top: 50px;
+}
+
+.gallery-banner-content h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.breadcrumb {
+    position: absolute; /* Diposisikan absolut terhadap banner */
+    bottom: -150px; /* Diletakkan di paling bawah banner */
+    left: 50%; /* Diposisikan di tengah secara horizontal */
+    transform: translate(-50%, 50%);
+    background-color: #1a4a8d; /* Warna biru tua */
+    display: inline-block;
+    padding: 5px 20px;
+    border-radius: 5px;
+    border-left: 10px solid #fdb900; /* Aksen kuning */
+    display: inline-flex; /* Menggunakan inline-flex agar pas dengan konten */
+    align-items: center;
+
+
+}
+
+.breadcrumb span {
+    font-size: 16px;
+    font-weight: 500;
+
+}
+
+
+
+.breadcrumb {
+    position: absolute;
+    bottom: -150px;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    background-color: #1a4a8d;
+    display: inline-block;
+    padding: 5px 20px;
+    border-radius: 5px;
+    border-left: 10px solid #FEDE30;
+    display: inline-flex;
+    align-items: center;
+
+
+}
+
+.breadcrumb span {
+    font-size: 16px;
+    font-weight: 500;
+
+}
+
+.gallery-section {
+    padding: 80px 0;
+    background-color: #ffffff;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 kolom sebagai dasar */
+    grid-auto-rows: 250px; /* Tinggi baris otomatis */
+    gap: 15px;
+}
+
+.gallery-item {
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+/* Mengatur ukuran dan posisi setiap item untuk menciptakan efek kolase */
+.item-1 {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+.item-2 {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3; /* Tall image */
+}
+.item-3 {
+    grid-column: 3 / 5;
+    grid-row: 1 / 2; /* Wide image */
+}
+.item-4 {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+}
+.item-5 {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+}
+.item-6 {
+    grid-column: 4 / 5;
+    grid-row: 2 / 4; /* Tall image */
+}
+.item-7 {
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+}
+.item-8 {
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+}
+.item-9 {
+    grid-column: 3 / 4;
+    grid-row: 3 / 4;
+}
+
+
+/* ================================================== */
+/* ========= RESPONSIVE STYLES UNTUK MOBILE (DIPERBAIKI) ========= */
+/* ================================================== */
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr); /* Menjadi 2 kolom di mobile */
+        grid-auto-rows: 200px;
+    }
+
+    /* Reset semua posisi item agar mengalir secara alami dan mengisi semua slot */
+    .gallery-item,
+    .item-1, .item-2, .item-3,
+    .item-4, .item-5, .item-6,
+    .item-7, .item-8, .item-9 {
+        grid-column: auto;
+        grid-row: auto;
+    }
+}
+

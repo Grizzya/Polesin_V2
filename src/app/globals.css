@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Reset default Next.js dark mode background to allow custom css to take over */
+body {
+  background-color: transparent;
+  color: inherit;
+}

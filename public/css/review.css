@@ -1,0 +1,124 @@
+/* ========================================= */
+/* ======== TESTIMONIAL SECTION (V2) ========= */
+/* ========================================= */
+
+.testimonial-section-v2 {
+    padding: 80px 0;
+    background-color: #ffffff;
+}
+
+/* Menggunakan kembali style section-header yang sudah ada */
+/* Jika belum ada, Anda bisa tambahkan style ini */
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+.section-header p {
+    margin: 0; color: #0D4884; font-size: 14px; letter-spacing: 1px;
+    position: relative; display: inline-block;
+}
+.section-header p::before, .section-header p::after {
+    content: ''; position: absolute; top: 50%; width: 50px;
+    height: 1px; background-color: #0D4884;
+}
+.section-header p::before { left: -60px; }
+.section-header p::after { right: -60px; }
+.section-header h2 { font-size: 36px; color: #0D4884; margin-top: 5px; }
+
+
+.testimonial-grid-v2 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.testimonial-card-v2 {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    border: 2px solid #0D4884;
+}
+
+.user-details h3 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.star-rating .fas,
+.star-rating .far,
+.star-rating .fas {
+    color: #fdb900;
+    font-size: 16px;
+}
+
+.review-text-v2 {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #555;
+    margin: 0;
+}
+
+
+/* ================================================== */
+/* ========= RESPONSIVE STYLES UNTUK MOBILE ========= */
+/* ================================================== */
+@media (max-width: 992px) {
+    .testimonial-grid-v2 {
+        grid-template-columns: 1fr 1fr; /* 2 kolom di tablet */
+    }
+}
+
+@media (max-width: 768px) {
+    .testimonial-grid-v2 {
+        grid-template-columns: 1fr; /* 1 kolom di mobile */
+    }
+}
+
+
+
+.testimonial-footer {
+    text-align: right;
+    margin-top: 40px; /* Memberi jarak dari grid testimoni */
+}
+
+.btn-view-more {
+    display: inline-block;
+    align-items: center;
+    gap: 8px;
+    background-color: #1a4a8d;
+    color: #ffffff;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-view-more:hover {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #1a4a8d;
+    transform: translateY(-2px); /* Efek sedikit terangkat */
+
+}
+
+
+

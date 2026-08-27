@@ -1,0 +1,101 @@
+
+.header-wrapper {
+    width: 100%;
+    position: absolute; /* Membuat header "mengambang" */
+    top: 0;
+    left: 0;
+    z-index: 10; /* Memastikan header selalu di paling depan */
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+/* Bagian Atas (Biru Tua) */
+.top-bar {
+    background-color: #0D4884;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.social-icons a {
+    color: white;
+    font-size: 20px;
+    margin-left: 15px;
+    text-decoration: none;
+}
+
+
+.nav-bar-container {
+    padding: 10px 20px;
+}
+
+
+.nav-bar {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.nav-bar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav-bar li {
+    margin: 0 25px;
+}
+
+.nav-bar a {
+    text-decoration: none;
+    color: #1a4a8d;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.nav-bar a:hover {
+    color: #2a6fce;
+}
+
+
+/* ================================================== */
+/* ========= RESPONSIVE STYLES UNTUK MOBILE ========= */
+/* ================================================== */
+@media (max-width: 768px) {
+    /* Mengembalikan layout top-bar ke ujung kiri dan kanan */
+    .top-bar {
+        justify-content: space-between;
+        padding: 10px 15px; /* Sedikit mengurangi padding */
+    }
+
+    /* Menghapus flex-wrap agar menu tetap satu baris */
+    .nav-bar ul {
+        flex-wrap: nowrap;
+    }
+
+    .nav-bar {
+        padding: 12px 5px; /* Padding disesuaikan agar tidak terlalu lebar */
+    }
+
+    /* Mengecilkan ukuran font dan jarak agar muat */
+    .logo .logo-main { font-size: 22px; }
+    .logo .logo-sub { font-size: 9px; }
+    .nav-bar li { margin: 10px; } /* Jarak antar menu dikecilkan */
+    .nav-bar a { font-size: 13px; } /* Font menu dikecilkan */
+    .social-icons a { font-size: 16px; margin-left: 8px; }
+}
+

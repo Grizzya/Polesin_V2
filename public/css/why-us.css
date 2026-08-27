@@ -1,0 +1,77 @@
+
+.why-us-section {
+    padding: 80px 0;
+    background-color: #ffffff; /* Warna latar belakang sedikit abu-abu */
+}
+
+.why-us-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Membuat 4 kolom */
+    gap: 30px;
+    text-align: center;
+}
+
+.feature-box {
+    padding: 20px;
+    position: relative;
+}
+
+
+.feature-box:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -15px;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 100px;
+    background-color: #e0e0e0;
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    background-color: #0D4884;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+}
+
+.feature-box h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.feature-box p {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* ================================================== */
+/* ========= RESPONSIVE STYLES UNTUK MOBILE ========= */
+/* ================================================== */
+@media (max-width: 992px) {
+    .why-us-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .feature-box:nth-child(2)::after {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .why-us-grid {
+        grid-template-columns: 1fr;
+    }
+    /* Menghilangkan semua garis pemisah di tampilan mobile */
+    .feature-box:not(:last-child)::after {
+        display: none;
+    }
+}

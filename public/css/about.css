@@ -1,0 +1,215 @@
+/* ========================================= */
+/* ========= ABOUT US SECTION STYLE ========== */
+/* ========================================= */
+
+.about-us-section {
+    padding: 100px 0;
+    background-color: #ffffff;
+    overflow-x: hidden; /* Mencegah scroll horizontal karena animasi */
+}
+
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.about-us-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+/* Container untuk gambar */
+.about-us-images {
+    position: relative;
+    padding-bottom: 40px; /* Memberi ruang untuk gambar yang tumpang tindih di bawah */
+}
+
+/* Gambar utama (kiri) */
+.about-us-images .about-img-background {
+    width: 60%;
+    border-radius: 15px;
+    top: -70px;
+    position: relative;
+    left: -130px;
+}
+
+/* Gambar kedua yang menimpa (kanan bawah) */
+.about-us-images .about-img-foreground {
+    position: absolute;
+    width: 60%;
+    bottom: -60px; /* Posisi di paling bawah container */
+    border-radius: 15px;
+    left: 90px;
+}
+
+.experience-box {
+    position: absolute;
+    bottom: -15px; /* Posisi di bawah, sejajar dengan gambar kedua */
+    left: 15px;
+    background-color: #1a4a8d;
+    color: white;
+    width: 150px;
+    height: 150px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.experience-box span {
+    font-size: 16px;
+    font-weight: normal;
+    margin-top: 5px;
+}
+
+.about-us-content .section-tag {
+    color: #1a4a8d;
+    font-weight: bold;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.about-us-content h2 {
+    font-size: 36px;
+    color: #0c0c0c;
+    margin-bottom: 20px;
+}
+
+.about-us-content p {
+    color: #010101;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.about-us-content ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.about-us-content ul li {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.about-us-content ul i {
+    color: #0D4884;
+    margin-right: 10px;
+}
+
+.btn-book-now {
+    background-color: #FEDE30;
+    color: #0D4884;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 15px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-book-now:hover {
+    background-color: #e4c52d;
+}
+
+/* ================================================== */
+/* ========= RESPONSIVE STYLES UNTUK MOBILE (BARU) ========= */
+/* ================================================== */
+@media (max-width: 992px) { /* Diperlebar agar aktif di tablet juga */
+    .about-us-grid {
+        grid-template-columns: 1fr; /* Mengubah layout menjadi 1 kolom */
+        gap: 0; /* Menghilangkan gap agar gambar dan teks lebih rapat */
+    }
+
+    .about-us-images {
+        height: 550px; /* Memberi tinggi tetap agar gambar tidak terlalu besar */
+        margin-bottom: 40px; /* Memberi jarak antara gambar dan teks di bawahnya */
+        transform: scale(0.9); /* Sedikit mengecilkan seluruh blok gambar */
+    }
+
+    .about-us-images .about-img-background {
+        width: 70%;
+        height: 400px;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .about-us-images .about-img-foreground {
+        width: 70%;
+        height: 400px;
+        object-fit: cover;
+        position: absolute;
+        bottom: 0;
+        right: -50px;
+    }
+
+    .experience-box {
+        width: 120px;
+        height: 120px;
+        font-size: 36px;
+        bottom: 100px;
+        left: 20px;
+    }
+    .experience-box span {
+        font-size: 14px;
+    }
+
+    .about-us-content {
+        text-align: center; /* Membuat teks rata tengah */
+    }
+
+    .about-us-content ul {
+        text-align: left; /* Menjaga list tetap rata kiri */
+        display: inline-block; /* Agar bisa di-center oleh parent */
+    }
+
+    .about-us-content h2 {
+        font-size: 28px; /* Mengecilkan ukuran judul */
+    }
+
+    .btn-book-now {
+        display: block;
+        width: 80%;
+        max-width: 280px;
+        margin: 30px auto 0; /* Memberi jarak atas dan membuatnya center */
+        text-align: center;
+    }
+}
+
+
+/* ========================================= */
+/* ========= ANIMATION ON SCROLL STYLE ========= */
+/* ========================================= */
+
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide-up-on-scroll {
+    transform: translateY(-50px);
+    transition: transform 0.6s ease-out;
+}
+.slide-up-on-scroll.is-visible {
+    transform: translateY(0);
+}
+
+.animate-on-scroll.delay-1,
+.slide-up-on-scroll.delay-1 {
+    transition-delay: 0.2s;
+}
