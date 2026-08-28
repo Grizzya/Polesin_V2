@@ -7,7 +7,8 @@ import WhyUs from '@/components/WhyUs';
 import Testimonials from '@/components/Testimonials';
 import ScrollAnimationWrapper from '@/components/ScrollAnimationWrapper';
 
-export async function generateMetadata({params: {locale}}: {params: {locale: string}}): Promise<Metadata> {
+export async function generateMetadata({params}: {params: Promise<{locale: string}>}): Promise<Metadata> {
+  const { locale } = await params;
   const t = await getTranslations({locale, namespace: 'Metadata'});
   const ogLocale = locale === 'id' ? 'id_ID' : 'en_US';
   
