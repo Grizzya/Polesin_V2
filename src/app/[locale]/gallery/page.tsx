@@ -1,4 +1,35 @@
 import Image from 'next/image';
+import {getTranslations} from 'next-intl/server';
+import type { Metadata } from 'next';
+
+export async function generateMetadata({params: {locale}}: {params: {locale: string}}): Promise<Metadata> {
+  const t = await getTranslations({locale, namespace: 'Metadata'});
+  const ogLocale = locale === 'id' ? 'id_ID' : 'en_US';
+
+  return {
+    title: t('gallery.title'),
+    description: t('gallery.description'),
+    openGraph: {
+      title: t('gallery.title'),
+      description: t('gallery.description'),
+      locale: ogLocale,
+      type: 'website'
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('gallery.title'),
+      description: t('gallery.description')
+    },
+    alternates: {
+      canonical: `/${locale}/gallery`,
+      languages: {
+        en: '/en/gallery',
+        id: '/id/gallery',
+        'x-default': '/en/gallery'
+      }
+    }
+  };
+}
 
 export default function GalleryPage() {
   return (

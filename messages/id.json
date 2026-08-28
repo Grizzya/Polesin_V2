@@ -1,0 +1,84 @@
+{
+  "Header": {
+    "home": "Beranda",
+    "services": "Layanan",
+    "about": "Tentang Kami",
+    "gallery": "Galeri",
+    "contact": "Kontak"
+  },
+  "Hero": {
+    "title": "Jasa Poles Lantai di Bali",
+    "description": "Polesin Bali adalah jasa poles lantai terdekat dan jasa poles lantai murah di Bali yang melayani berbagai kebutuhan seperti jasa poles marmer di Bali dan jasa poles lantai di Bali untuk villa, hotel, rumah, dan kantor. Kami mengutamakan hasil mengkilap, rapi, tahan lama, serta pelayanan profesional dengan harga terjangkau."
+  },
+  "AboutUs": {
+    "yearsExperience": "Tahun Pengalaman",
+    "tag": "TENTANG KAMI",
+    "title": "Memberikan Layanan Poles Lantai dan Kebersihan Berkualitas Tinggi di Seluruh Bali Sejak 2022",
+    "description": "Dari villa mewah hingga rumah sehari-hari, Polesin Bali menghadirkan perawatan ahli untuk setiap permukaan. Kami berspesialisasi dalam poles lantai, deep cleaning, dan restorasi detail yang membuat ruangan Anda bersih dan segar. Terpercaya, berasuransi, dan selalu berkomitmen pada kualitas, kami membuat kebersihan terasa mudah.",
+    "list1": "Profesional yang berpengalaman dan terlatih",
+    "list2": "Kepuasan dijamin untuk setiap layanan",
+    "list3": "Dipercaya oleh rumah, villa, dan bisnis",
+    "list4": "Jadwal fleksibel, selalu tepat waktu",
+    "button": "Pesan Sekarang!"
+  },
+  "Services": {
+    "tag": "POLESIN",
+    "title": "LAYANAN",
+    "card1_title": "General Cleaning",
+    "card1_desc": "Layanan pembersihan rumah kami mencakup semuanya mulai dari menyapu, mengepel, dan membersihkan debu hingga membersihkan kamar mandi dan dapur. Kami akan membuat rumah Anda berkilau.",
+    "card1_details": "Pembersihan harian | Deep cleaning | Pembersihan pasca-konstruksi | Pembersihan sofa | Pembersihan lantai keramik",
+    "card2_title": "Poles Lantai",
+    "card2_desc": "Kembalikan kilau lantai marmer, granit, atau teraso Anda. Kami menggunakan mesin dan bahan kimia khusus untuk menghilangkan goresan dan kusam, membuat lantai Anda terlihat seperti baru.",
+    "card2_details": "Poles Marmer | Poles Beton | Poles Teraso | Poles Granit | Poles Keramik | Restorasi marmer kusam atau bernoda | Pelapisan & Perlindungan Permukaan",
+    "card3_title": "Poles Dinding",
+    "card3_desc": "Pembersihan mendalam bahkan untuk area paling kotor sekalipun. Sempurna untuk pembersihan setelah renovasi atau persiapan untuk acara khusus. Kami membersihkan setiap sudut.",
+    "card3_details": "Pembersihan | Deep Cleaning | General Cleaning",
+    "contactWhatsApp": "Hubungi via WhatsApp"
+  },
+  "WhyUs": {
+    "title": "Mengapa Polesin",
+    "box1_title": "Harga Kompetitif",
+    "box1_desc": "Layanan berkualitas dengan harga kompetitif",
+    "box2_title": "Proses Efisien",
+    "box2_desc": "Pekerjaan cepat dan efisien tanpa mengorbankan kualitas",
+    "box3_title": "Pengalaman Profesional",
+    "box3_desc": "Tim berpengalaman memastikan hasil berkualitas",
+    "box4_title": "Kepuasan Pelanggan",
+    "box4_desc": "Prioritas utama kami adalah kepuasan pelanggan"
+  },
+  "Testimonials": {
+    "tag": "POLESIN",
+    "title": "TESTIMONI",
+    "testi1_name": "Andrian",
+    "testi1_text": "Luar biasa hasil poles marmer di Bali dari tim Polesin! Lantai villa saya yang tadinya kusam sekarang mengkilap seperti baru. Pengerjaannya rapi, detail, dan sangat profesional. Sangat merekomendasikan layanan poles lantai marmer di Bali ini.",
+    "testi2_name": "Jessica",
+    "testi2_text": "Awalnya ragu cari jasa poles lantai murah di Bali, takut hasilnya kurang bagus. Tapi Polesin Bali membuktikan sebaliknya! Harganya sangat bersaing tapi kualitas poles lantai di Bali yang mereka berikan benar-benar memuaskan. Rumah jadi bersih kinclong.",
+    "testi3_name": "Robert",
+    "testi3_text": "Setelah renovasi, lantai rumah berantakan sekali. Untung ketemu Polesin Bali. Layanan poles lantai di Bali mereka benar-benar menyelamatkan. Dari poles lantai marmer sampai teraso, semuanya jadi bersih banget. Timnya juga bisa dipercaya dan kerjanya cepat. Puas"
+  },
+  "Footer": {
+    "address": "Jl. Raya Dalung No.70, Dalung, Kec. Kuta Utara, Kabupaten Badung, Bali 80361"
+  },
+  "Metadata": {
+    "home": {
+      "title": "Polesin Bali | Jasa Poles Lantai di Bali & General Cleaning",
+      "description": "Polesin Bali adalah jasa poles lantai terdekat dan jasa poles lantai murah di Bali yang melayani berbagai kebutuhan untuk villa, hotel, rumah, dan kantor."
+    },
+    "services": {
+      "title": "Layanan Kami | Polesin",
+      "description": "Jelajahi layanan pembersihan dan poles lantai profesional kami di Bali, termasuk general cleaning, poles lantai, dan poles dinding."
+    },
+    "about": {
+      "title": "Tentang Kami | Polesin",
+      "description": "Pelajari lebih lanjut tentang Polesin Bali, yang memberikan layanan poles lantai dan kebersihan berkualitas tinggi di seluruh Bali sejak 2022."
+    },
+    "gallery": {
+      "title": "Galeri | Polesin",
+      "description": "Lihat galeri kami untuk melihat hasil luar biasa dari layanan poles lantai dan kebersihan kami di Bali."
+    },
+    "blogLantai": {
+      "title": "Jasa Poles Lantai Marmer Termurah di Bali | Polesin",
+      "description": "Ahli poles lantai marmer di Bali. Melayani Denpasar, Canggu, Seminyak. Spesialis kristalisasi marmer kusam menjadi kilap seperti kaca."
+    }
+  }
+}

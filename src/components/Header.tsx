@@ -1,7 +1,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import {useTranslations} from 'next-intl';
 
 export default function Header() {
+  const t = useTranslations('Header');
+
   return (
     <header className="header-wrapper">
       <div className="top-bar">
@@ -19,11 +22,11 @@ export default function Header() {
       <div className="nav-bar">
         <nav>
           <ul>
-            <li><Link href="/">Home</Link></li>
-            <li><Link href="/services">Service</Link></li>
-            <li><Link href="/about-us">About Us</Link></li>
-            <li><Link href="/gallery">Gallery</Link></li>
-            <li><a href="https://api.whatsapp.com/send?phone=6285385825320" target="_blank" rel="noopener noreferrer">Contact</a></li>
+            <li><Link href="/">{t('home')}</Link></li>
+            <li><Link href="/services">{t('services')}</Link></li>
+            <li><Link href="/about-us">{t('about')}</Link></li>
+            <li><Link href="/gallery">{t('gallery')}</Link></li>
+            <li><a href="https://api.whatsapp.com/send?phone=6285385825320" target="_blank" rel="noopener noreferrer">{t('contact')}</a></li>
           </ul>
         </nav>
       </div>

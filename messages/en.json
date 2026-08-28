@@ -1,0 +1,84 @@
+{
+  "Header": {
+    "home": "Home",
+    "services": "Service",
+    "about": "About Us",
+    "gallery": "Gallery",
+    "contact": "Contact"
+  },
+  "Hero": {
+    "title": "Professional Floor Polishing & Cleaning Service in Bali",
+    "description": "Polesin Bali provides professional floor polishing and high-quality general cleaning services in Bali for villas, homes, hotels, and businesses. We bring surfaces back to life with shiny, long-lasting results."
+  },
+  "AboutUs": {
+    "yearsExperience": "Years Experience",
+    "tag": "ABOUT US",
+    "title": "Delivering High-Quality Polishing and Cleaning Services Across Bali Since 2022",
+    "description": "From luxury villas to everyday homes, Polesin Bali brings expert care and attention to every surface. We specialize in floor polishing, deep cleaning, and detailed restoration that leave your spaces looking spotless and refreshed. Trusted, insured, and always committed to quality we make clean look effortless.",
+    "list1": "Experienced and trained professionals",
+    "list2": "Satisfaction guaranteed on every service",
+    "list3": "Trusted by homes, villas, and businesses",
+    "list4": "Flexible scheduling, always on time",
+    "button": "Book Now!"
+  },
+  "Services": {
+    "tag": "POLESIN",
+    "title": "SERVICE",
+    "card1_title": "General Cleaning",
+    "card1_desc": "Our house cleaning services include everything from sweeping, mopping, and dusting to cleaning bathrooms and kitchens. We'll leave your home sparkling.",
+    "card1_details": "Daily cleaning | Deep cleaning | Post-construction cleaning | Sofa cleaning | Floor cleaning for ceramic",
+    "card2_title": "Floor Polishing",
+    "card2_desc": "Restore the shine of your marble, granite, or terrazzo floors. We use special machines and chemicals to remove scratches and dullness, leaving your floors looking like new.",
+    "card2_details": "Marble Polishing | Concrete Polishing | Terrazzo Polishing | Granite Polishing | Ceramic Polishing | Restoration of dull or stained marble | Surface Coating & Protection",
+    "card3_title": "Wall Polishing",
+    "card3_desc": "Deep cleaning for even the dirtiest areas. Perfect for cleaning after renovations or preparing for special events. We clean every corner.",
+    "card3_details": "Cleaning | Deep Cleaning | General Cleaning",
+    "contactWhatsApp": "Contact via WhatsApp"
+  },
+  "WhyUs": {
+    "title": "Why Polesin",
+    "box1_title": "Competitive Price",
+    "box1_desc": "Quality service at competitive prices",
+    "box2_title": "Efficient Process",
+    "box2_desc": "Fast and efficient work without sacrificing quality",
+    "box3_title": "Professional Experience",
+    "box3_desc": "Experienced team ensures quality results",
+    "box4_title": "Customer satisfaction",
+    "box4_desc": "Our top priority is customer satisfaction"
+  },
+  "Testimonials": {
+    "tag": "POLESIN",
+    "title": "TESTIMONY",
+    "testi1_name": "Andrian",
+    "testi1_text": "Incredible results from the Polesin team! My villa's floors, which were dull, are now as shiny as new. The work was neat, detailed, and highly professional. Highly recommended service.",
+    "testi2_name": "Jessica",
+    "testi2_text": "At first, I was hesitant to look for cheap floor polishing in Bali, afraid the results wouldn't be good. But Polesin Bali proved otherwise! The price is very competitive, and the quality is truly satisfying.",
+    "testi3_name": "Robert",
+    "testi3_text": "After renovation, the house floor was a total mess. Thank goodness I found Polesin Bali. Their floor polishing service was a lifesaver. From marble to terrazzo, everything became super clean. The team is trustworthy and fast."
+  },
+  "Footer": {
+    "address": "Jl. Raya Dalung No.70, Dalung, Kec. Kuta Utara, Kabupaten Badung, Bali 80361"
+  },
+  "Metadata": {
+    "home": {
+      "title": "Professional Floor Polishing & Cleaning Service in Bali",
+      "description": "Polesin Bali provides professional floor polishing and high-quality general cleaning services in Bali for villas, homes, hotels, and businesses."
+    },
+    "services": {
+      "title": "Our Services | Polesin",
+      "description": "Explore our professional cleaning and floor polishing services in Bali, including general cleaning, floor polishing, and wall polishing."
+    },
+    "about": {
+      "title": "About Us | Polesin",
+      "description": "Learn more about Polesin Bali, delivering high-quality polishing and cleaning services across Bali since 2022."
+    },
+    "gallery": {
+      "title": "Gallery | Polesin",
+      "description": "View our gallery to see the amazing results of our floor polishing and cleaning services in Bali."
+    },
+    "blogLantai": {
+      "title": "Cheapest Marble Floor Polishing Service in Bali | Polesin",
+      "description": "Marble floor polishing expert in Bali. Serving Denpasar, Canggu, Seminyak. Specializing in crystallization of dull marble into glass-like shine."
+    }
+  }
+}

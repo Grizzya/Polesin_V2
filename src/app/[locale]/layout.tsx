@@ -1,25 +1,43 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import './globals.css';
+import '../globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Script from 'next/script';
+import {NextIntlClientProvider} from 'next-intl';
+import {getMessages, setRequestLocale} from 'next-intl/server';
+import {routing} from '@/i18n/routing';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
-  title: 'Polesin Bali | Jasa Poles Lantai di Bali & General Cleaning',
-  description: 'Polesin Bali provides professional floor polishing and high-quality general cleaning services in Bali. Experienced team for villas, homes, and businesses. Contact us for a sparkling clean result!',
-  keywords: 'floor polishing service bali, general cleaning bali, marble polishing, cleaning service bali, polesin bali, poles marmer di bali, poles granit di bali, poles acian dinding, poles acian dinding di bali, poles terazzo, poles teraso, poles terazzo di bali, poles terazo di bali, poles lantai marmer terdekat, general cleaning di bali, deep cleaning after construction bali, poles batu alam bali, poles batu alam di bali, Poles lantai marmer di bali, Poles lantai murah di bali, Poles lantai di bali',
-};
+import {getTranslations} from 'next-intl/server';
 
-export default function RootLayout({
+export async function generateMetadata({params: {locale}}: {params: {locale: string}}): Promise<Metadata> {
+  const t = await getTranslations({locale, namespace: 'Metadata'});
+ 
+  return {
+    metadataBase: new URL('https://polesinbali.com'),
+    title: t('home.title'),
+    description: t('home.description'),
+  };
+}
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({locale}));
+}
+
+export default async function RootLayout({
   children,
+  params: { locale }
 }: {
   children: React.ReactNode;
+  params: { locale: string };
 }) {
+  setRequestLocale(locale);
+  const messages = await getMessages();
+
   return (
-    <html lang="id">
+    <html lang={locale}>
       <head>
         <link rel="icon" type="image/png" href="/images/logo.png" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
@@ -48,9 +66,11 @@ export default function RootLayout({
         </Script>
       </head>
       <body className={inter.className}>
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <NextIntlClientProvider messages={messages}>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

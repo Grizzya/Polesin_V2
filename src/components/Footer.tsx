@@ -1,6 +1,9 @@
 import Image from 'next/image';
+import {useTranslations} from 'next-intl';
 
 export default function Footer() {
+  const t = useTranslations('Footer');
+
   return (
     <footer className="site-footer">
       <div className="container">
@@ -9,7 +12,7 @@ export default function Footer() {
             <Image src="/images/polesin.webp" alt="Polesin Logo" width={200} height={100} />
           </div>
           <div className="footer-address">
-            <p>Jl. Raya Dalung No.70, Dalung, Kec. Kuta Utara, Kabupaten Badung, Bali 80361</p>
+            <p>{t('address')}</p>
           </div>
           <div className="footer-contact">
             <p>085385825320</p>

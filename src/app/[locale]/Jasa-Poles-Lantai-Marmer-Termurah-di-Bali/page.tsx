@@ -1,11 +1,35 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import {getTranslations} from 'next-intl/server';
 
-export const metadata: Metadata = {
-  title: 'Jasa Poles Lantai Marmer Termurah di Bali | Polesin',
-  description: 'Ahli poles lantai marmer di Bali. Melayani Denpasar, Canggu, Seminyak. Spesialis kristalisasi marmer kusam menjadi kilap seperti kaca.',
-  keywords: 'jasa poles marmer bali, tukang poles lantai Termurah di denpasar, biaya poles marmer bali, kristalisasi marmer bali'
-};
+export async function generateMetadata({params: {locale}}: {params: {locale: string}}): Promise<Metadata> {
+  const t = await getTranslations({locale, namespace: 'Metadata'});
+  const ogLocale = locale === 'id' ? 'id_ID' : 'en_US';
+
+  return {
+    title: t('blogLantai.title'),
+    description: t('blogLantai.description'),
+    openGraph: {
+      title: t('blogLantai.title'),
+      description: t('blogLantai.description'),
+      locale: ogLocale,
+      type: 'article'
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('blogLantai.title'),
+      description: t('blogLantai.description')
+    },
+    alternates: {
+      canonical: `/${locale}/Jasa-Poles-Lantai-Marmer-Termurah-di-Bali`,
+      languages: {
+        en: '/en/Jasa-Poles-Lantai-Marmer-Termurah-di-Bali',
+        id: '/id/Jasa-Poles-Lantai-Marmer-Termurah-di-Bali',
+        'x-default': '/en/Jasa-Poles-Lantai-Marmer-Termurah-di-Bali'
+      }
+    }
+  };
+}
 
 export default function BlogLantaiPage() {
   return (
