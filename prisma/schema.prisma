@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  username     String      @unique
+  passwordHash String
+  role         String      @default("admin")
+
+  articles     Article[]
+  auditLogs    AuditLog[]
+
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+model Article {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  title_en      String
+  title_id      String
+  slug          String   @unique
+  excerpt_en    String?
+  excerpt_id    String?
+  content_en    String
+  content_id    String
+  image         String?
+  status        String   @default("draft")
+
+  metaTitle_en       String?
+  metaTitle_id       String?
+  metaDescription_en String?
+  metaDescription_id String?
+  focusKeyword       String?
+
+  authorId      String   @db.ObjectId
+  author        Admin    @relation(fields: [authorId], references: [id])
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  auditLogs     AuditLog[]
+}
+
+model AuditLog {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+
+  adminId     String    @db.ObjectId
+  admin       Admin     @relation(fields: [adminId], references: [id])
+
+  action      String
+  target      String
+  targetId    String?   @db.ObjectId
+  article     Article?  @relation(fields: [targetId], references: [id])
+
+  description String?
+  ipAddress   String?
+
+  createdAt   DateTime  @default(now())
+}

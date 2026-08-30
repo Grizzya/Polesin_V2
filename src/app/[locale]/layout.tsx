@@ -67,7 +67,7 @@ export default async function RootLayout({
           `}
         </Script>
       </head>
-      <body className={inter.className}>
+      <body className={inter.className} suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
           <Header />
           <main>{children}</main>
