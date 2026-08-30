@@ -1,7 +1,7 @@
 'use client';
 import { useActionState } from 'react';
 import { editArticleAction } from './actions';
-import ArticleEditor from '../../components/ArticleEditor';
+import ArticleEditor from '../../../components/ArticleEditor';
 import type { Article } from '@prisma/client';
 
 export default function EditArticleForm({ article }: { article: Article }) {
