@@ -3,7 +3,7 @@
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 import { signToken } from '@/lib/auth';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export async function loginAdmin(prevState: any, formData: FormData) {
@@ -42,6 +42,19 @@ export async function loginAdmin(prevState: any, formData: FormData) {
       sameSite: 'lax',
       path: '/',
       maxAge: 60 * 60 * 24, // 1 hari
+    });
+
+    const headersList = await headers();
+    const ipAddress = headersList.get('x-forwarded-for') || headersList.get('x-real-ip') || 'Unknown';
+
+    await prisma.auditLog.create({
+      data: {
+        adminId: admin.id,
+        action: 'LOGIN',
+        target: 'System',
+        description: 'Admin logged in successfully',
+        ipAddress: ipAddress,
+      }
     });
   } catch (error) {
     console.error('Login error:', error);

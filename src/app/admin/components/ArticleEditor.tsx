@@ -1,7 +1,7 @@
 'use client';
 import dynamic from 'next/dynamic';
 import { useMemo, useState } from 'react';
-import 'react-quill/dist/quill.snow.css';
+import 'react-quill-new/dist/quill.snow.css';
 import { useFormStatus } from 'react-dom';
 import Link from 'next/link';
 
@@ -36,7 +36,7 @@ export function SubmitButtons() {
 
 // Ignore types for react-quill since @types/react-quill was missing
 // @ts-ignore
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
 export default function ArticleEditor({ 
   article, 
@@ -74,7 +74,7 @@ export default function ArticleEditor({
   };
 
   return (
-    <form action={formAction} className="p-6 max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
+    <form action={formAction} className="p-6 w-full flex flex-col lg:flex-row gap-6">
       {article && <input type="hidden" name="id" value={article.id} />}
       
       {/* Main Content Column */}

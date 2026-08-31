@@ -2,6 +2,8 @@ import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 import EditArticleForm from './EditArticleForm';
 
+export const dynamic = 'force-dynamic';
+
 export default async function EditArticlePage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const id = params.id;

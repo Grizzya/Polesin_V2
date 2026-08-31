@@ -1,9 +1,10 @@
 import '../globals.css';
 import { Inter } from 'next/font/google';
-import AdminSidebar from './AdminSidebar';
-import AdminMainContainer from './AdminMainContainer';
+import AdminLayoutWrapper from './AdminLayoutWrapper';
 
 const inter = Inter({ subsets: ['latin'] });
+
+export const dynamic = 'force-dynamic';
 
 export const metadata = {
   title: 'Polesin Admin',
@@ -17,13 +18,10 @@ export default function AdminLayout({
 }) {
   return (
     <html lang="id">
-      <body className={`${inter.className} bg-gray-50 text-gray-900`} suppressHydrationWarning>
-        <div className="flex min-h-screen">
-          <AdminSidebar />
-          <AdminMainContainer>
-            {children}
-          </AdminMainContainer>
-        </div>
+      <body className={`${inter.className} bg-white text-gray-900`} suppressHydrationWarning>
+        <AdminLayoutWrapper>
+          {children}
+        </AdminLayoutWrapper>
       </body>
     </html>
   );
