@@ -5,6 +5,7 @@ import { getAuthenticatedAdmin } from '@/lib/auth-guard';
 import { uploadImage, deleteImage } from '@/lib/cloudinary';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { headers } from 'next/headers';
 
 function generateSlug(title: string) {
   return title
@@ -96,13 +97,17 @@ export async function editArticleAction(prevState: any, formData: FormData) {
       }
     });
 
+    const headersList = await headers();
+    const ipAddress = headersList.get('x-forwarded-for') || headersList.get('x-real-ip') || 'Unknown';
+
     await prisma.auditLog.create({
       data: {
         action: 'edit_article',
         target: 'Article',
         targetId: id,
         adminId: admin.id,
-        description: `Edited article: ${title_en}`
+        description: `Edited article: ${title_en}`,
+        ipAddress
       }
     });
 

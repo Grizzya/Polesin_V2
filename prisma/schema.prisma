@@ -51,8 +51,8 @@ model Article {
 model AuditLog {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
 
-  adminId     String    @db.ObjectId
-  admin       Admin     @relation(fields: [adminId], references: [id])
+  adminId     String?   @db.ObjectId
+  admin       Admin?    @relation(fields: [adminId], references: [id])
 
   action      String
   target      String

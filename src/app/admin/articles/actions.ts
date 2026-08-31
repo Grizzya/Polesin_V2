@@ -5,6 +5,7 @@ import { getAuthenticatedAdmin } from '@/lib/auth-guard';
 import { deleteImage } from '@/lib/cloudinary';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { headers } from 'next/headers';
 
 export async function deleteArticleAction(formData: FormData) {
   const admin = await getAuthenticatedAdmin();
@@ -30,6 +31,9 @@ export async function deleteArticleAction(formData: FormData) {
   // Delete from database
   await prisma.article.delete({ where: { id } });
 
+  const headersList = await headers();
+  const ipAddress = headersList.get('x-forwarded-for') || headersList.get('x-real-ip') || 'Unknown';
+
   // Log audit
   await prisma.auditLog.create({
     data: {
@@ -37,7 +41,8 @@ export async function deleteArticleAction(formData: FormData) {
       target: 'Article',
       targetId: id,
       adminId: admin.id,
-      description: `Deleted article: ${article.title_en}`
+      description: `Deleted article: ${article.title_en}`,
+      ipAddress
     }
   });
 

@@ -14,18 +14,38 @@ export async function loginAdmin(prevState: any, formData: FormData) {
     return { error: 'Username dan password wajib diisi.' };
   }
 
+  const headersList = await headers();
+  const ipAddress = headersList.get('x-forwarded-for') || headersList.get('x-real-ip') || 'Unknown';
+
   try {
     const admin = await prisma.admin.findUnique({
       where: { username },
     });
 
     if (!admin) {
+      await prisma.auditLog.create({
+        data: {
+          action: 'login_failed',
+          target: 'System',
+          description: `Failed login attempt for username: ${username}`,
+          ipAddress,
+        }
+      });
       return { error: 'Username atau password salah.' };
     }
 
     const isValidPassword = await bcrypt.compare(password, admin.passwordHash);
 
     if (!isValidPassword) {
+      await prisma.auditLog.create({
+        data: {
+          adminId: admin.id,
+          action: 'login_failed',
+          target: 'System',
+          description: `Failed login attempt for username: ${username} (invalid password)`,
+          ipAddress,
+        }
+      });
       return { error: 'Username atau password salah.' };
     }
 
@@ -41,16 +61,13 @@ export async function loginAdmin(prevState: any, formData: FormData) {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',
-      maxAge: 60 * 60 * 24, // 1 hari
+      maxAge: 60 * 60 * 24, 
     });
-
-    const headersList = await headers();
-    const ipAddress = headersList.get('x-forwarded-for') || headersList.get('x-real-ip') || 'Unknown';
 
     await prisma.auditLog.create({
       data: {
         adminId: admin.id,
-        action: 'LOGIN',
+        action: 'login',
         target: 'System',
         description: 'Admin logged in successfully',
         ipAddress: ipAddress,

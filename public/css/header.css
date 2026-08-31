@@ -21,8 +21,16 @@ body {
     padding: 10px 40px;
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .logo img {
     height: 50px;
+    width: auto;
+    object-fit: contain;
 }
 
 .social-icons a {
@@ -91,9 +99,10 @@ body {
         padding: 12px 5px; /* Padding disesuaikan agar tidak terlalu lebar */
     }
 
-    /* Mengecilkan ukuran font dan jarak agar muat */
-    .logo .logo-main { font-size: 22px; }
-    .logo .logo-sub { font-size: 9px; }
+    /* Menyesuaikan ukuran logo image pada mobile */
+    .logo img {
+        height: 35px;
+    }
     .nav-bar li { margin: 10px; } /* Jarak antar menu dikecilkan */
     .nav-bar a { font-size: 13px; } /* Font menu dikecilkan */
     .social-icons a { font-size: 16px; margin-left: 8px; }

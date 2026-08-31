@@ -51,14 +51,15 @@ export default async function AuditLogsPage() {
                       })}
                     </td>
                     <td className="p-4">
-                      <div className="font-medium text-gray-900">{log.admin.username}</div>
+                      <div className="font-medium text-gray-900">{log.admin?.username || 'Unknown / Failed'}</div>
                     </td>
                     <td className="p-4">
                       <span className={`px-2.5 py-1 rounded-full text-xs font-medium border ${
-                        log.action === 'CREATE' ? 'bg-green-50 text-green-700 border-green-200' :
-                        log.action === 'UPDATE' ? 'bg-blue-50 text-blue-700 border-blue-200' :
-                        log.action === 'DELETE' ? 'bg-red-50 text-red-700 border-red-200' :
-                        log.action === 'LOGIN' ? 'bg-purple-50 text-purple-700 border-purple-200' :
+                        log.action === 'create_article' ? 'bg-green-50 text-green-700 border-green-200' :
+                        log.action === 'edit_article' ? 'bg-blue-50 text-blue-700 border-blue-200' :
+                        log.action === 'delete_article' ? 'bg-red-50 text-red-700 border-red-200' :
+                        log.action === 'login' ? 'bg-purple-50 text-purple-700 border-purple-200' :
+                        log.action === 'login_failed' ? 'bg-orange-50 text-orange-700 border-orange-200' :
                         'bg-gray-50 text-gray-700 border-gray-200'
                       }`}>
                         {log.action}
