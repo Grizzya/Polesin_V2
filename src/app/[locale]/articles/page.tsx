@@ -1,10 +1,9 @@
-import { prisma } from '@/lib/prisma';
-import Image from 'next/image';
-import Link from 'next/link';
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
+import { prisma } from "@/lib/prisma";
+import Image from "next/image";
+import Link from "next/link";
 
-export const revalidate = 60; // ISR: regenerate every 60 seconds
-
+export const revalidate = 60;
 export async function generateMetadata({ 
   params 
 }: { 
@@ -38,159 +37,205 @@ export async function generateMetadata({
   };
 }
 
-export default async function ArticlesPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function ArticlesPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ page?: string }>;
+}) {
   const { locale } = await params;
+  const resolvedSearchParams = await searchParams;
+
+  const currentPage = Number(resolvedSearchParams.page) || 1;
   
+  const itemsPerPage = 6;
+  const skip = (currentPage - 1) * itemsPerPage;
+
+  const whereCondition: any = {
+    status: 'published',
+  };
+
   const articles = await prisma.article.findMany({
-    where: { status: 'published' },
-    orderBy: { createdAt: 'desc' },
+    where: whereCondition,
+    skip,
+    take: itemsPerPage,
+    orderBy: { createdAt: "desc" },
   });
 
-  const featuredArticle = articles[0];
-  const sideArticles = articles.slice(1, 4);
-  const gridArticles = articles.slice(4);
+  const totalItems = await prisma.article.count({ where: whereCondition });
+  const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
 
-  const formatDate = (date: Date) => {
-    return new Date(date).toLocaleDateString(locale === 'id' ? 'id-ID' : 'en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
+  if (articles.length === 0) {
+    return (
+      <div className="min-h-screen bg-gray-50 pb-16 pt-32 lg:pt-40 px-4 sm:px-6 lg:px-8 font-sans">
+        <main className="max-w-[1440px] w-full mx-auto py-20 text-center text-gray-500 flex-grow">
+          <p>{locale === 'id' ? "Belum ada artikel yang dipublikasikan." : "No articles published yet."}</p>
+        </main>
+      </div>
+    );
+  }
+
+  const artikelUtama = articles[0];
+  const artikelSisa = articles.slice(1);
+  
+  // Membagi 5 artikel sisa: 3 di kolom kiri, 2 di kolom kanan (Top News)
+  const artikelListKiri = artikelSisa.slice(0, 3);
+  const artikelTopNewsKanan = artikelSisa.slice(3, 5);
+
+  const getJudul = (item: any) => locale === "id" ? item.title_id : item.title_en;
+  const getKonten = (item: any) => locale === "id" ? item.excerpt_id : item.excerpt_en;
+
+  const formatTanggal = (date: Date) =>
+    new Date(date).toLocaleDateString(locale === "id" ? "id-ID" : "en-US", {
+      day: "numeric", month: "long", year: "numeric",
     });
-  };
 
   const placeholderImg = "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&q=80&w=800";
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-16 pt-32 lg:pt-40 px-4 sm:px-6 lg:px-8 font-sans">
-      <div className="max-w-[1440px] w-full mx-auto space-y-24">
-        
-        {/* --- SECTION 1: Our Insightful Blog --- */}
-        <section>
-          <div className="text-center mb-12">
-            <h2 className="text-4xl lg:text-6xl font-bold text-slate-900 tracking-tight">
-              {locale === 'id' ? (
-                <>Artikel Terbaru & Karya Kami</>
-              ) : (
-                <>Latest Articles & Our Work</>
-              )}
-            </h2>
-          </div>
+    <div className="min-h-screen bg-gray-50 text-black pb-16 pt-32 lg:pt-40 font-sans">
+      <main className="max-w-[1440px] w-full mx-auto px-4 md:px-10 py-12 flex-grow space-y-12">
 
-          {articles.length > 0 ? (
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-              
-              {/* Featured Article (Left - takes up 7 cols) */}
-              {featuredArticle && (
-                <Link href={`/${locale}/articles/${featuredArticle.slug}`} className="lg:col-span-7 relative rounded-2xl overflow-hidden group cursor-pointer h-[400px] block shadow-sm hover:shadow-xl transition-shadow duration-300">
-                  <Image 
-                    src={featuredArticle.image || placeholderImg} 
-                    alt={locale === 'id' ? featuredArticle.title_id : featuredArticle.title_en} 
-                    fill
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 p-8 w-full">
-                    <h3 className="text-2xl font-bold text-white mb-2 leading-tight">
-                      {locale === 'id' ? featuredArticle.title_id : featuredArticle.title_en}
-                    </h3>
-                    <div className="flex items-center text-gray-300 text-sm mb-3 gap-2">
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                      {formatDate(featuredArticle.createdAt)}
-                    </div>
-                    <p className="text-gray-300 text-sm line-clamp-2">
-                      {locale === 'id' ? featuredArticle.excerpt_id : featuredArticle.excerpt_en}
-                    </p>
-                  </div>
-                </Link>
-              )}
+        {/* HEADER */}
+        <div className="space-y-1">
+          <span className="inline-block bg-blue-100 text-blue-600 text-xs font-semibold px-2.5 py-1 rounded">
+            {locale === 'id' ? 'Berita & Wawasan' : 'News & Insights'}
+          </span>
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 max-w-2xl leading-tight">
+            {locale === 'id' 
+              ? 'Pembaruan Terbaru & Wawasan dari Kami'
+              : 'Latest Updates & Insights from Us'}
+          </h1>
+        </div>
 
-              {/* Side Articles (Right - takes up 5 cols) */}
-              {sideArticles.length > 0 && (
-                <div className="lg:col-span-5 flex flex-col gap-4">
-                  {sideArticles.map((article) => (
-                    <Link href={`/${locale}/articles/${article.slug}`} key={article.id} className="bg-white rounded-2xl p-4 flex gap-4 hover:shadow-md transition-shadow cursor-pointer border border-gray-100 group">
-                      <div className="w-32 h-24 relative flex-shrink-0 overflow-hidden rounded-xl">
-                        <Image 
-                          src={article.image || placeholderImg} 
-                          alt={locale === 'id' ? article.title_id : article.title_en} 
-                          fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-105" 
-                        />
-                      </div>
-                      <div className="flex flex-col justify-center">
-                        <h4 className="font-bold text-slate-900 text-sm md:text-base leading-tight mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
-                          {locale === 'id' ? article.title_id : article.title_en}
-                        </h4>
-                        <div className="flex items-center text-gray-500 text-xs mb-2 gap-1.5">
-                          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                          {formatDate(article.createdAt)}
-                        </div>
-                        <span className="text-sm font-semibold text-slate-800 flex items-center gap-1 group-hover:text-blue-600">
-                          {locale === 'id' ? 'Baca Selengkapnya' : 'Read More'} <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
-                        </span>
-                      </div>
-                    </Link>
-                  ))}
+        {/* SUBHEADER */}
+        <div className="border-b border-gray-200 pb-2 flex justify-between items-center">
+          <span className="text-sm font-bold text-gray-800 border-b-2 border-black pb-2">
+            {locale === 'id' ? 'Artikel Terbaru' : 'Latest Articles'} {currentPage > 1 && `– Page ${currentPage}`}
+          </span>
+        </div>
+
+        {/* HERO ARTICLE */}
+        {currentPage === 1 && (
+          <Link href={`/${locale}/articles/${artikelUtama.slug}`} className="group block relative rounded-xl overflow-hidden shadow-lg border">
+            <div className="relative h-[550px] w-full bg-gray-900">
+              <Image 
+                src={artikelUtama.image || placeholderImg} 
+                alt={getJudul(artikelUtama)}
+                className="w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-500"
+                fill
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" aria-hidden="true" />
+              <div className="absolute bottom-0 inset-x-0 p-8 md:p-12 space-y-4 max-w-3xl">
+                <h2 className="text-2xl md:text-4xl font-bold text-white leading-snug drop-shadow-sm">
+                  {getJudul(artikelUtama)}
+                </h2>
+                <p className="text-gray-200 text-sm md:text-base line-clamp-2 leading-relaxed opacity-90 font-light">
+                  {getKonten(artikelUtama)}
+                </p>
+                <div className="inline-flex items-center gap-2 bg-blue-600 text-white font-bold text-xs px-5 py-3 rounded hover:bg-blue-700 transition-colors mt-2 shadow-md">
+                  {locale === 'id' ? 'Baca Selengkapnya' : 'Read Full Article'} &rarr;
                 </div>
-              )}
+              </div>
             </div>
-          ) : (
-            <p className="text-center text-gray-500 py-10">
-              {locale === 'id' ? 'Belum ada artikel yang dipublikasikan.' : 'No published articles yet.'}
-            </p>
-          )}
-        </section>
+          </Link>
+        )}
 
-        {/* --- SECTION 2: Explore Our Latest Articles --- */}
-        {gridArticles.length > 0 && (
-          <section>
-            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-10 gap-4">
-              <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-                {locale === 'id' ? (
-                  <>Jelajahi Artikel <span className="border-b-4 border-teal-600/60 pb-1">Terbaru</span></>
-                ) : (
-                  <>Explore Our Latest <span className="border-b-4 border-teal-600/60 pb-1">Articles</span></>
-                )}
-              </h2>
-              <p className="text-gray-500 max-w-lg lg:text-right text-sm">
-                {locale === 'id' 
-                  ? 'Temukan berbagai wawasan, panduan, dan pembaruan terbaru seputar layanan kami untuk mendukung kesuksesan Anda.' 
-                  : 'Discover various insights, guides, and the latest updates about our services to support your success.'}
-              </p>
-            </div>
+        {/* GRID */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {gridArticles.map((article) => (
-                <Link href={`/${locale}/articles/${article.slug}`} key={article.id} className="bg-white rounded-2xl overflow-hidden hover:shadow-lg transition-shadow cursor-pointer flex flex-col group border border-gray-100">
-                  <div className="relative w-full h-48 overflow-hidden">
-                    <Image 
-                      src={article.image || placeholderImg} 
-                      alt={locale === 'id' ? article.title_id : article.title_en} 
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105" 
-                    />
-                  </div>
-                  <div className="p-6 flex flex-col flex-1">
-                    <h4 className="font-bold text-slate-900 text-lg mb-3 leading-tight line-clamp-2 group-hover:text-blue-600 transition-colors">
-                      {locale === 'id' ? article.title_id : article.title_en}
-                    </h4>
-                    <div className="flex items-center text-gray-500 text-sm mb-4 gap-1.5">
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                      {formatDate(article.createdAt)}
-                    </div>
-                    <div className="mt-auto pt-2">
-                      <span className="text-sm font-semibold text-slate-800 flex items-center gap-1 group-hover:text-blue-600">
-                        {locale === 'id' ? 'Baca Selengkapnya' : 'Read More'} <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+          <div className={`${currentPage === 1 ? "lg:col-span-2" : "lg:col-span-3"} space-y-6 divide-y divide-gray-100`}>
+            {(currentPage === 1 ? artikelListKiri : articles).map((item, idx) => (
+              <Link key={item.id} href={`/${locale}/articles/${item.slug}`}
+                className={`group flex flex-col-reverse md:flex-row gap-8 rounded-xl p-4 transition-all duration-300 hover:bg-white border border-transparent hover:border-gray-100 hover:shadow-sm ${idx > 0 ? "mt-6 pt-6" : ""}`}
+              >
+                <div className="flex-1 space-y-3 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-xs text-gray-400 font-medium">
+                      <time dateTime={new Date(item.createdAt).toISOString()}>{formatTanggal(item.createdAt)}</time>
+                      <span className="text-gray-200" aria-hidden="true">|</span>
+                      <span className="text-blue-600 font-semibold uppercase text-[10px]">
+                        {locale === 'id' ? 'Artikel' : 'Article'}
                       </span>
                     </div>
+                    <h2 className="text-xl md:text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
+                      {getJudul(item)}
+                    </h2>
+                    <p className="text-gray-500 text-sm line-clamp-3 leading-relaxed font-light">{getKonten(item)}</p>
+                  </div>
+                </div>
+                <div className="w-full md:w-72 h-48 relative flex-shrink-0 bg-gray-100 rounded-xl overflow-hidden border shadow-sm">
+                  <Image 
+                    src={item.image || placeholderImg} 
+                    alt={getJudul(item)}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    fill 
+                  />
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {currentPage === 1 && (
+            <aside className="space-y-6" aria-label="Top News">
+              {artikelTopNewsKanan.map((item) => (
+                <Link key={item.id} href={`/${locale}/articles/${item.slug}`}
+                  className="group block space-y-4 rounded-xl p-4 transition-all duration-300 hover:bg-white border border-transparent hover:border-gray-100 hover:shadow-sm">
+                  <div className="w-full h-64 sm:h-[250px] relative bg-gray-100 rounded-xl overflow-hidden border shadow-sm">
+                    <Image 
+                      src={item.image || placeholderImg} 
+                      alt={getJudul(item)}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      fill 
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <span className="text-[10px] font-bold uppercase text-blue-600 tracking-wider block">
+                      {locale === 'id' ? 'Pilihan Editor' : 'Editor Choice'}
+                    </span>
+                    <h2 className="text-base font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
+                      {getJudul(item)}
+                    </h2>
+                    <p className="text-gray-500 text-xs line-clamp-2 leading-relaxed font-light">{getKonten(item)}</p>
                   </div>
                 </Link>
               ))}
-            </div>
-          </section>
-        )}
+            </aside>
+          )}
 
-      </div>
+        </div>
+
+        {/* PAGINATION */}
+        <nav className="border-t border-gray-200 pt-8 flex items-center justify-between" aria-label="Pagination">
+          <p className="text-xs text-gray-400">
+            {locale === 'id' ? 'Halaman' : 'Page'} <strong className="text-black">{currentPage}</strong> {locale === 'id' ? 'dari' : 'of'} <strong className="text-black">{totalPages}</strong>
+          </p>
+          <div className="flex gap-2">
+            {currentPage > 1 ? (
+              <Link href={`?page=${currentPage - 1}`} className="px-4 py-2 text-xs font-bold text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-all shadow-sm">
+                &larr; {locale === 'id' ? 'Sebelumnya' : 'Previous'}
+              </Link>
+            ) : (
+              <button disabled className="px-4 py-2 text-xs font-bold text-gray-300 bg-gray-50 border border-gray-200 rounded-lg cursor-not-allowed">&larr; {locale === 'id' ? 'Sebelumnya' : 'Previous'}</button>
+            )}
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <Link key={page} href={`?page=${page}`} aria-current={currentPage === page ? "page" : undefined}
+                className={`px-3.5 py-2 text-xs font-bold rounded-lg border transition-all ${currentPage === page ? "bg-blue-600 text-white border-blue-600 shadow-sm" : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"}`}>
+                {page}
+              </Link>
+            ))}
+            {currentPage < totalPages ? (
+              <Link href={`?page=${currentPage + 1}`} className="px-4 py-2 text-xs font-bold text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-all shadow-sm">
+                {locale === 'id' ? 'Selanjutnya' : 'Next'} &rarr;
+              </Link>
+            ) : (
+              <button disabled className="px-4 py-2 text-xs font-bold text-gray-300 bg-gray-50 border border-gray-200 rounded-lg cursor-not-allowed">{locale === 'id' ? 'Selanjutnya' : 'Next'} &rarr;</button>
+            )}
+          </div>
+        </nav>
+
+      </main>
     </div>
   );
 }
