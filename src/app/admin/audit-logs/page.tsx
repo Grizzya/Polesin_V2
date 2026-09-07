@@ -1,8 +1,15 @@
 import { prisma } from '@/lib/prisma';
+import { getAuthenticatedAdmin } from '@/lib/auth-guard';
+import { redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AuditLogsPage() {
+  const admin = await getAuthenticatedAdmin();
+  if (!admin) {
+    redirect('/admin/login');
+  }
+
   const logs = await prisma.auditLog.findMany({
     orderBy: { createdAt: 'desc' },
     include: { admin: { select: { username: true } } },

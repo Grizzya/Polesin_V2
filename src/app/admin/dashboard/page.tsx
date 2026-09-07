@@ -1,10 +1,17 @@
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 import { logoutAction } from './actions';
+import { getAuthenticatedAdmin } from '@/lib/auth-guard';
+import { redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 
 export default async function DashboardPage() {
+  const admin = await getAuthenticatedAdmin();
+  if (!admin) {
+    redirect('/admin/login');
+  }
+
   const articles = await prisma.article.findMany({
     orderBy: { createdAt: 'desc' },
   });

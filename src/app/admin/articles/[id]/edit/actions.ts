@@ -2,7 +2,7 @@
 
 import { prisma } from '@/lib/prisma';
 import { getAuthenticatedAdmin } from '@/lib/auth-guard';
-import { uploadImage, deleteImage } from '@/lib/cloudinary';
+import { uploadImage, deleteImage, validateImageFile } from '@/lib/cloudinary';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
@@ -67,6 +67,10 @@ export async function editArticleAction(prevState: any, formData: FormData) {
 
     let imageUrl = existingArticle.image;
     if (imageFile && imageFile.size > 0) {
+      const validation = validateImageFile(imageFile);
+      if (!validation.valid) {
+        return { error: validation.error };
+      }
       const buffer = Buffer.from(await imageFile.arrayBuffer());
       const newImageUrl = await uploadImage(buffer);
       

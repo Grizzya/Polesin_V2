@@ -47,7 +47,8 @@ export default async function ArticlesPage({
   const { locale } = await params;
   const resolvedSearchParams = await searchParams;
 
-  const currentPage = Number(resolvedSearchParams.page) || 1;
+  const parsedPage = parseInt(resolvedSearchParams.page || '1', 10);
+  const currentPage = !isNaN(parsedPage) && parsedPage > 0 ? parsedPage : 1;
   
   const itemsPerPage = 6;
   const skip = (currentPage - 1) * itemsPerPage;
@@ -95,14 +96,14 @@ export default async function ArticlesPage({
 
   return (
     <div className="min-h-screen bg-gray-50 text-black pb-16 pt-32 lg:pt-40 font-sans">
-      <main className="max-w-[1440px] w-full mx-auto px-4 md:px-10 py-12 flex-grow space-y-12">
+      <main className="max-w-[1440px] w-full mx-auto px-4 flex-grow space-y-12">
 
         {/* HEADER */}
         <div className="space-y-1">
-          <span className="inline-block bg-blue-100 text-blue-600 text-xs font-semibold px-2.5 py-1 rounded">
+          <span className="inline-block bg-[#0D4884]/10 text-[#0D4884] text-xs font-semibold px-2.5 py-1 rounded">
             {locale === 'id' ? 'Berita & Wawasan' : 'News & Insights'}
           </span>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 max-w-2xl leading-tight">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 max-w-100 leading-tight">
             {locale === 'id' 
               ? 'Pembaruan Terbaru & Wawasan dari Kami'
               : 'Latest Updates & Insights from Us'}
@@ -134,7 +135,7 @@ export default async function ArticlesPage({
                 <p className="text-gray-200 text-sm md:text-base line-clamp-2 leading-relaxed opacity-90 font-light">
                   {getKonten(artikelUtama)}
                 </p>
-                <div className="inline-flex items-center gap-2 bg-blue-600 text-white font-bold text-xs px-5 py-3 rounded hover:bg-blue-700 transition-colors mt-2 shadow-md">
+                <div className="inline-flex items-center gap-2 bg-[#0D4884] text-white font-bold text-xs px-5 py-3 rounded hover:bg-[#0D4884]/90 transition-colors mt-2 shadow-md">
                   {locale === 'id' ? 'Baca Selengkapnya' : 'Read Full Article'} &rarr;
                 </div>
               </div>
@@ -155,11 +156,11 @@ export default async function ArticlesPage({
                     <div className="flex items-center gap-2 text-xs text-gray-400 font-medium">
                       <time dateTime={new Date(item.createdAt).toISOString()}>{formatTanggal(item.createdAt)}</time>
                       <span className="text-gray-200" aria-hidden="true">|</span>
-                      <span className="text-blue-600 font-semibold uppercase text-[10px]">
+                      <span className="text-[#0D4884] font-semibold uppercase text-[10px]">
                         {locale === 'id' ? 'Artikel' : 'Article'}
                       </span>
                     </div>
-                    <h2 className="text-xl md:text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
+                    <h2 className="text-xl md:text-2xl font-bold text-gray-900 group-hover:text-[#0D4884] transition-colors line-clamp-2 leading-snug">
                       {getJudul(item)}
                     </h2>
                     <p className="text-gray-500 text-sm line-clamp-3 leading-relaxed font-light">{getKonten(item)}</p>
@@ -191,10 +192,10 @@ export default async function ArticlesPage({
                     />
                   </div>
                   <div className="space-y-2">
-                    <span className="text-[10px] font-bold uppercase text-blue-600 tracking-wider block">
+                    <span className="text-[10px] font-bold uppercase text-[#0D4884] tracking-wider block">
                       {locale === 'id' ? 'Pilihan Editor' : 'Editor Choice'}
                     </span>
-                    <h2 className="text-base font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
+                    <h2 className="text-base font-bold text-gray-900 group-hover:text-[#0D4884] transition-colors line-clamp-2 leading-snug">
                       {getJudul(item)}
                     </h2>
                     <p className="text-gray-500 text-xs line-clamp-2 leading-relaxed font-light">{getKonten(item)}</p>
@@ -221,7 +222,7 @@ export default async function ArticlesPage({
             )}
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
               <Link key={page} href={`?page=${page}`} aria-current={currentPage === page ? "page" : undefined}
-                className={`px-3.5 py-2 text-xs font-bold rounded-lg border transition-all ${currentPage === page ? "bg-blue-600 text-white border-blue-600 shadow-sm" : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"}`}>
+                className={`px-3.5 py-2 text-xs font-bold rounded-lg border transition-all ${currentPage === page ? "bg-[#0D4884] text-white border-[#0D4884] shadow-sm" : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"}`}>
                 {page}
               </Link>
             ))}

@@ -30,6 +30,8 @@
 /* Gambar utama (kiri) */
 .about-us-images .about-img-background {
     width: 60%;
+    height: 500px;
+    object-fit: cover;
     border-radius: 15px;
     top: -70px;
     position: relative;

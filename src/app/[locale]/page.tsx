@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import AboutUs from '@/components/AboutUs';
 import Services from '@/components/Services';
 import WhyUs from '@/components/WhyUs';
+import ArticleSection from '@/components/ArticleSection';
 import Testimonials from '@/components/Testimonials';
 import ScrollAnimationWrapper from '@/components/ScrollAnimationWrapper';
 
@@ -44,6 +45,9 @@ export default function Home() {
     <>
       <ScrollAnimationWrapper />
       <section className="hero-section">
+        <div className="hero-bg hero-bg-1"></div>
+        <div className="hero-bg hero-bg-2"></div>
+        <div className="hero-overlay"></div>
         <div className="hero-content">
           <div className="hero-slider">
             <div className="hero-slider-track">
@@ -64,6 +68,7 @@ export default function Home() {
       <AboutUs />
       <Services />
       <WhyUs />
+      <ArticleSection />
       <Testimonials />
     </>
   );

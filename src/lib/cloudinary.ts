@@ -6,6 +6,19 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+export const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+export const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
+
+export function validateImageFile(file: File): { valid: boolean; error?: string } {
+  if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+    return { valid: false, error: 'Format gambar tidak didukung. Harap unggah JPG, PNG, atau WEBP.' };
+  }
+  if (file.size > MAX_IMAGE_SIZE) {
+    return { valid: false, error: 'Ukuran gambar terlalu besar. Maksimal 5 MB.' };
+  }
+  return { valid: true };
+}
+
 /**
  * Uploads a buffer to Cloudinary and returns the secure URL
  */

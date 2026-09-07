@@ -1,4 +1,5 @@
 import AboutUs from '@/components/AboutUs';
+import ScrollAnimationWrapper from '@/components/ScrollAnimationWrapper';
 import {getTranslations} from 'next-intl/server';
 import type { Metadata } from 'next';
 
@@ -35,6 +36,7 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
 export default function AboutUsPage() {
   return (
     <>
+      <ScrollAnimationWrapper />
       <div className="about-banner">
         <div className="about-banner-content">
           <h1>About Us</h1>

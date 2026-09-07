@@ -3,10 +3,17 @@ import Link from 'next/link';
 import { deleteArticleAction } from './actions';
 import Image from 'next/image';
 import DeleteButton from './DeleteButton';
+import { getAuthenticatedAdmin } from '@/lib/auth-guard';
+import { redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 
 export default async function ArticlesListPage(props: { searchParams: Promise<{ q?: string }> }) {
+  const admin = await getAuthenticatedAdmin();
+  if (!admin) {
+    redirect('/admin/login');
+  }
+
   const searchParams = await props.searchParams;
   const q = searchParams.q || '';
 

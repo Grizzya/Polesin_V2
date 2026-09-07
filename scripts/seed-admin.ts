@@ -4,12 +4,17 @@ import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function main() {
-  const username = 'admins'; 
-  const plainPassword = 'Molesyuk123!'; 
+  const username = process.env.ADMIN_SEED_USERNAME;
+  const plainPassword = process.env.ADMIN_SEED_PASSWORD;
+
+  if (!username || !plainPassword) {
+    console.error('Error: Harap setel environment variable ADMIN_SEED_USERNAME dan ADMIN_SEED_PASSWORD sebelum menjalankan script ini.');
+    process.exit(1);
+  }
 
   const existing = await prisma.admin.findUnique({ where: { username } });
   if (existing) {
-    console.log('Admin dengan username ini sudah ada, dibatalkan.');
+    console.log(`Admin dengan username "${username}" sudah ada, dibatalkan.`);
     return;
   }
 

@@ -9,7 +9,7 @@ export default function AboutUs() {
       <div className="container">
         <div className="about-us-grid">
           <div className="about-us-images">
-            <Image src="/images/about3.webp" alt="Professional cleaning service" width={500} height={500} className="about-img-background animate-on-scroll" />
+            <Image src="/images/Poles2.webp" alt="Professional cleaning service" width={500} height={500} className="about-img-background animate-on-scroll" />
             <Image src="/images/about4.webp" alt="Detailed cleaning" width={500} height={500} className="about-img-foreground animate-on-scroll delay-1" />
             <div className="experience-box animate-on-scroll">
               3+

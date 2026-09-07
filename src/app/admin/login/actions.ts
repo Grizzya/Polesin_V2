@@ -15,9 +15,27 @@ export async function loginAdmin(prevState: any, formData: FormData) {
   }
 
   const headersList = await headers();
-  const ipAddress = headersList.get('x-forwarded-for') || headersList.get('x-real-ip') || 'Unknown';
+  const rawIp = headersList.get('x-forwarded-for') || headersList.get('x-real-ip') || 'Unknown';
+  // If multiple IPs are in x-forwarded-for, take the first (client) IP
+  const ipAddress = rawIp.split(',')[0].trim();
 
   try {
+    const fifteenMinutesAgo = new Date(Date.now() - 15 * 60 * 1000);
+    const failedAttempts = await prisma.auditLog.count({
+      where: {
+        action: 'login_failed',
+        createdAt: { gte: fifteenMinutesAgo },
+        OR: [
+          { ipAddress },
+          { description: { contains: username } }
+        ]
+      }
+    });
+
+    if (failedAttempts >= 5) {
+      return { error: 'Terlalu banyak percobaan login gagal. Akun/IP dibatasi sementara selama 15 menit.' };
+    }
+
     const admin = await prisma.admin.findUnique({
       where: { username },
     });
