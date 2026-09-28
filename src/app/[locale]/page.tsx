@@ -8,6 +8,8 @@ import ArticleSection from '@/components/ArticleSection';
 import Testimonials from '@/components/Testimonials';
 import ScrollAnimationWrapper from '@/components/ScrollAnimationWrapper';
 
+export const revalidate = 60;
+
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({locale, namespace: 'Metadata'});

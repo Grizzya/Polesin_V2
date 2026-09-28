@@ -6,11 +6,16 @@ import { useLocale } from 'next-intl';
 export default async function ArticleSection() {
   const locale = useLocale();
 
-  const articles = await prisma.article.findMany({
-    where: { status: 'published' },
-    orderBy: { createdAt: "desc" },
-    take: 3,
-  });
+  let articles: any[] = [];
+  try {
+    articles = await prisma.article.findMany({
+      where: { status: 'published' },
+      orderBy: { createdAt: "desc" },
+      take: 3,
+    });
+  } catch (error) {
+    console.warn("Failed to fetch articles in ArticleSection. Database might be unreachable during build.");
+  }
 
   const getJudul = (item: any) => locale === "id" ? item.title_id : item.title_en;
   const getKonten = (item: any) => locale === "id" ? item.excerpt_id : item.excerpt_en;
