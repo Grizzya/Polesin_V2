@@ -124,9 +124,9 @@ export default async function ArticleDetailPage({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 
             {/* Konten artikel */}
-            <div className="lg:col-span-8">
+            <div className="lg:col-span-8 min-w-0 break-words">
               <div
-                className="article-content text-gray-700 text-justify
+                className="article-content text-gray-700
                            [&>p]:mb-6 [&>p]:leading-relaxed
                            [&>h2]:text-3xl [&>h2]:font-bold [&>h2]:mt-10 [&>h2]:mb-4 [&>h2]:text-gray-900
                            [&>h3]:text-2xl [&>h3]:font-bold [&>h3]:mt-8 [&>h3]:mb-4 [&>h3]:text-gray-900
@@ -134,7 +134,7 @@ export default async function ArticleDetailPage({
                            [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:mb-6 [&>ol>li]:mb-2
                            [&>a]:text-[#0D4884] [&>a]:underline hover:[&>a]:text-[#0D4884]/80
                            [&>blockquote]:border-l-4 [&>blockquote]:border-gray-300 [&>blockquote]:pl-4 [&>blockquote]:italic [&>blockquote]:text-gray-600 [&>blockquote]:my-6
-                           [&>img]:rounded-xl [&>img]:my-8 [&>img]:shadow-md"
+                           [&>img]:rounded-xl [&>img]:my-8 [&>img]:shadow-md [&>img]:max-w-full [&>img]:h-auto"
                 dangerouslySetInnerHTML={{ 
                   __html: sanitizeHtml(content || '', {
                     allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'h1', 'h2', 'span', 'figure', 'figcaption', 'iframe', 'video']),
