@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { routing } from '@/i18n/routing';
-import DOMPurify from 'isomorphic-dompurify';
+import sanitizeHtml from 'sanitize-html';
 
 export const revalidate = 60; 
 
@@ -135,7 +135,16 @@ export default async function ArticleDetailPage({
                            [&>a]:text-[#0D4884] [&>a]:underline hover:[&>a]:text-[#0D4884]/80
                            [&>blockquote]:border-l-4 [&>blockquote]:border-gray-300 [&>blockquote]:pl-4 [&>blockquote]:italic [&>blockquote]:text-gray-600 [&>blockquote]:my-6
                            [&>img]:rounded-xl [&>img]:my-8 [&>img]:shadow-md"
-                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content || '') }}
+                dangerouslySetInnerHTML={{ 
+                  __html: sanitizeHtml(content || '', {
+                    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'h1', 'h2', 'span', 'figure', 'figcaption', 'iframe', 'video']),
+                    allowedAttributes: {
+                      ...sanitizeHtml.defaults.allowedAttributes,
+                      '*': ['class', 'style', 'id', 'src', 'alt', 'width', 'height', 'target', 'rel']
+                    },
+                    allowedIframeHostnames: ['www.youtube.com']
+                  }) 
+                }}
               />
             </div>        
 
@@ -154,12 +163,12 @@ export default async function ArticleDetailPage({
 
                 <div>
                   <h2 className="text-white text-[22px] font-semibold leading-snug">
-                    {locale === 'id' ? 'Butuh Layanan Konstruksi?' : 'Need Construction Service?'}
+                    {locale === 'id' ? 'Butuh Jasa Poles Lantai?' : 'Need Floor Polishing Service?'}
                   </h2>
                   <p className="mt-2 text-sm text-gray-200 leading-relaxed">
                     {locale === 'id'
-                     ? 'Tim kami siap mendukung proyek Anda — poles lantai, perawatan, & lainnya.'
-                     : 'Our team is ready to support your project — floor polishing, maintenance, & more.'}
+                     ? 'Tim ahli kami siap mengembalikan kilau lantai Anda — marmer, teraso, granit, & lainnya.'
+                     : 'Our expert team is ready to restore your floor\'s shine — marble, terrazzo, granite, & more.'}
                   </p>
                 </div>
 
