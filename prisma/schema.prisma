@@ -64,3 +64,8 @@ model AuditLog {
 
   createdAt   DateTime  @default(now())
 }
+
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "binary"
+}
