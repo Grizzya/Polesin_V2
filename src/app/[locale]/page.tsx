@@ -30,11 +30,11 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
       description: t('home.description')
     },
     alternates: {
-      canonical: `/${locale}`,
+      canonical: locale === 'en' ? '/' : `/${locale}`,
       languages: {
-        en: '/en',
+        en: '/',
         id: '/id',
-        'x-default': '/en'
+        'x-default': '/'
       }
     }
   };

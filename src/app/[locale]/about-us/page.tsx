@@ -23,11 +23,11 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
       description: t('about.description')
     },
     alternates: {
-      canonical: `/${locale}/about-us`,
+      canonical: locale === 'en' ? '/about-us' : `/${locale}/about-us`,
       languages: {
-        en: '/en/about-us',
+        en: '/about-us',
         id: '/id/about-us',
-        'x-default': '/en/about-us'
+        'x-default': '/about-us'
       }
     }
   };

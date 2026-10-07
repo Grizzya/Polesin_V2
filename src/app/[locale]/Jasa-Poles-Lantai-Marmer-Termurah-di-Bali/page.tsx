@@ -22,11 +22,11 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
       description: t('blogLantai.description')
     },
     alternates: {
-      canonical: `/${locale}/Jasa-Poles-Lantai-Marmer-Termurah-di-Bali`,
+      canonical: locale === 'en' ? '/Jasa-Poles-Lantai-Marmer-Termurah-di-Bali' : `/${locale}/Jasa-Poles-Lantai-Marmer-Termurah-di-Bali`,
       languages: {
-        en: '/en/Jasa-Poles-Lantai-Marmer-Termurah-di-Bali',
+        en: '/Jasa-Poles-Lantai-Marmer-Termurah-di-Bali',
         id: '/id/Jasa-Poles-Lantai-Marmer-Termurah-di-Bali',
-        'x-default': '/en/Jasa-Poles-Lantai-Marmer-Termurah-di-Bali'
+        'x-default': '/Jasa-Poles-Lantai-Marmer-Termurah-di-Bali'
       }
     }
   };
