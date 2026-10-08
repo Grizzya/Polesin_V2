@@ -3,12 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model Admin {
-  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  id           String      @id @default(uuid())
   username     String      @unique
   passwordHash String
   role         String      @default("admin")
@@ -21,7 +21,7 @@ model Admin {
 }
 
 model Article {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  id            String   @id @default(uuid())
 
   title_en      String
   title_id      String
@@ -39,7 +39,7 @@ model Article {
   metaDescription_id String?
   focusKeyword       String?
 
-  authorId      String   @db.ObjectId
+  authorId      String
   author        Admin    @relation(fields: [authorId], references: [id])
 
   createdAt     DateTime @default(now())
@@ -49,14 +49,14 @@ model Article {
 }
 
 model AuditLog {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  id          String    @id @default(uuid())
 
-  adminId     String?   @db.ObjectId
+  adminId     String?
   admin       Admin?    @relation(fields: [adminId], references: [id])
 
   action      String
   target      String
-  targetId    String?   @db.ObjectId
+  targetId    String?
   article     Article?  @relation(fields: [targetId], references: [id])
 
   description String?
