@@ -19,10 +19,10 @@ export default async function ArticlesListPage(props: { searchParams: Promise<{ 
 
   const articles = await prisma.article.findMany({
     where: {
-      title_en: { contains: q, mode: 'insensitive' }
+      title_en: { contains: q }
     },
     orderBy: { createdAt: 'desc' },
-    include: { author: { select: { username: true } } }
+    include: { author: true }
   });
 
   return (
