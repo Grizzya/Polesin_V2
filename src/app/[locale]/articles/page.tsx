@@ -57,15 +57,22 @@ export default async function ArticlesPage({
     status: 'published',
   };
 
-  const articles = await prisma.article.findMany({
-    where: whereCondition,
-    skip,
-    take: itemsPerPage,
-    orderBy: { createdAt: "desc" },
-  });
+  let articles: any[] = [];
+  let totalItems = 0;
+  let totalPages = 1;
 
-  const totalItems = await prisma.article.count({ where: whereCondition });
-  const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
+  try {
+    articles = await prisma.article.findMany({
+      where: whereCondition,
+      skip,
+      take: itemsPerPage,
+      orderBy: { createdAt: "desc" },
+    });
+    totalItems = await prisma.article.count({ where: whereCondition });
+    totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
+  } catch (error) {
+    console.warn("Failed to fetch articles in ArticlesPage. Database might be unreachable during build.");
+  }
 
   if (articles.length === 0) {
     return (
